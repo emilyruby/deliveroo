@@ -5,7 +5,7 @@ This is my code for the 'Cron Parser' question!
 ## Running the Code
 
 After cloning the project, just run the following command to get your cron
-string parsed. This is assuming you have python installed. Ti
+string parsed. This is assuming you have python installed:
 
 `python parser.py "CRON_STRING"`
 
@@ -13,7 +13,7 @@ For example:
 
 `python parser.py "*/15 0 1,15 * 1-5 /usr/bin/find"`
 
-You should then get the following output:
+For this input, you should then get the following output:
 
 ```
 Minutes: 0 15 30 45
