@@ -26,9 +26,9 @@ def define_string(string, datatype):
 
     # word conversions for days of the week
     days = [
-        'MON', 'TUE', 'WED',
-        'THU', 'FRI', 'SAT',
-        'SUN'
+        'SUN', 'MON', 'TUE',
+        'WED', 'THU', 'FRI',
+        'SAT'
     ]
 
     # return all values in range if * selector is used
@@ -57,7 +57,7 @@ def define_string(string, datatype):
 
     # handle last operator
     if "L" in string:
-        return handle_last(string, datatype)
+        return handle_last(string, datatype, days)
 
     # handle weekday operator
     if "W" in string:
@@ -95,14 +95,14 @@ def handle_intervals(string, values, datatype):
     """
     first, second = string.split("/")
 
-    if type(first) != int or type(second) != int:
-        raise Exception('Invalid input for {}'.format(datatype))
-
     if first == "*":
         return ' '.join(
             map(str, [i for i in values
                 if i % int(second) == 0])
             )
+
+    if type(first) != int or type(second) != int:
+        raise Exception('Invalid input for {}'.format(datatype))
     else:
         return ' '.join(
             map(str, [i for i in range(int(first), values[:-1])
@@ -141,19 +141,22 @@ def handle_lists(string, values, datatype, sub=None):
     return string.replace(",", " ")
 
 
-def handle_last(string, datatype):
+def handle_last(string, datatype, days):
     """
     INPUT: string = Value of parameter, datatype = Type of the parameter.
     OUTPUT: String indicating the day of the week/month the command will run.
     """
     if datatype == 'week':
-        return 'Last day of the Week'
+        return days[-1]
     elif datatype == 'day':
         if string == "LW":
             return 'Last week day of the Month'
         elif "-" in string:
             _, day = string.split("-")
             return "{} days from the end of the month".format(day)
+        elif len(string) > 1:
+            num, _ = string.split('L')
+            return "Last {} of the Month".format(days[num])
         return 'Last day of the Month'
     else:
         raise ValueError('L is not a valid {} input value'.format(datatype))
