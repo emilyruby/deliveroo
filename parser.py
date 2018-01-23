@@ -147,6 +147,9 @@ def handle_last(string, datatype, days):
     OUTPUT: String indicating the day of the week/month the command will run.
     """
     if datatype == 'week':
+        if len(string) > 1:
+            num, _ = string.split('L')
+            return "Last {} of the Month".format(days[int(num)])
         return days[-1]
     elif datatype == 'day':
         if string == "LW":
@@ -154,9 +157,6 @@ def handle_last(string, datatype, days):
         elif "-" in string:
             _, day = string.split("-")
             return "{} days from the end of the month".format(day)
-        elif len(string) > 1:
-            num, _ = string.split('L')
-            return "Last {} of the Month".format(days[num])
         return 'Last day of the Month'
     else:
         raise ValueError('L is not a valid {} input value'.format(datatype))
