@@ -45,7 +45,7 @@ def define_string(string, datatype):
 
     # handle intervals
     if "/" in string:
-        return handle_intervals(string, values[datatype])
+        return handle_intervals(string, values[datatype], datatype)
 
     # handle lists
     if "," in string:
@@ -86,7 +86,7 @@ def handle_range(string, values, datatype):
     return ' '.join(map(str, [i for i in range(start, end + 1)]))
 
 
-def handle_intervals(string, values):
+def handle_intervals(string, values, datatype):
     """
     INPUT: string = Value of parameter, values = Array of possible value for
     parameter.
@@ -94,6 +94,10 @@ def handle_intervals(string, values):
     possible range.
     """
     first, second = string.split("/")
+
+    if type(first) != int or type(second) != int:
+        raise Exception('Invalid input for {}'.format(datatype))
+
     if first == "*":
         return ' '.join(
             map(str, [i for i in values
