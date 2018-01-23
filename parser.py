@@ -126,7 +126,6 @@ def handle_lists(string, values, datatype, sub=None):
 
         if type_value is None:
             type_value = type(v)
-            print(type_value, v)
         elif type_value != type(v):
             raise Exception('{} input combination is not valid. Please use either string or number syntax.'.format(datatype))
 
