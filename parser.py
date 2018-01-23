@@ -149,7 +149,7 @@ def handle_last(string, datatype, days):
     if datatype == 'week':
         if len(string) > 1:
             num, _ = string.split('L')
-            return "Last {} of the Month".format(days[int(num)])
+            return "Last {} of the Month".format(days[int(num) - 1])
         return days[-1]
     elif datatype == 'day':
         if string == "LW":
